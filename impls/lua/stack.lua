@@ -52,6 +52,16 @@ function Stack:dup()
     table.insert(self.stack, last)
 end
 
+function Stack:twodup()
+    if #self.stack == 0 then
+        return nil
+    end
+    local one = self.stack[#self.stack - 1]
+    local two = self.stack[#self.stack]
+    table.insert(self.stack, one)
+    table.insert(self.stack, two)
+end
+
 function Stack:swap()
     if #self.stack < 2 then
         return nil

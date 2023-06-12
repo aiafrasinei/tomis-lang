@@ -1,4 +1,4 @@
-require "stack"
+require "impls.lua.stack"
 
 StackApi = {}
 StackApi.__index = StackApi
@@ -38,7 +38,9 @@ end
 
 --removeall
 function StackApi:removeall()
-    self.stacks = nil
+    for k, v in pairs(self.stacks) do
+        self.stacks[k] = nil
+    end
 end
 
 --clear
@@ -56,4 +58,15 @@ end
 
 function StackApi:getTempStack()
     return self.stacks["temp"]
+end
+
+function StackApi:getNrStacks()
+    local counter = 0
+    if self.stacks ~= nil then
+        for k, v in pairs(self.stacks) do
+            counter = counter + 1
+        end
+    end
+
+    return counter
 end

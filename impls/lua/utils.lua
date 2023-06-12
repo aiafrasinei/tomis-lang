@@ -41,4 +41,8 @@ function utils.get_tokens(input)
     return op, param
 end
 
+function utils.isempty(s)
+    return s == nil or s == ""
+end
+
 return utils

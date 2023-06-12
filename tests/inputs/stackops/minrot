@@ -1,5 +1,5 @@
-PUSH 2
-PUSH 3
-PUSH 1
+_ 2
+_ 3
+_ 1
 MINROT
 SPRINT

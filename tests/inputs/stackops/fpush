@@ -1,0 +1,2 @@
+FPUSH "tests/inputs/stackops/test.lua"
+SPRINT

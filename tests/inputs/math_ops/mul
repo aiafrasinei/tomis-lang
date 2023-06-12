@@ -1,4 +1,4 @@
-PUSH 2
-PUSH 3
+_ 2
+_ 3
 *
-PEEK TOS
+@ TOS
