@@ -50,6 +50,23 @@ local function run(sapi, op, param)
         end
         cs:clear()
         cs:push(str)
+    elseif op == "EXEC" then
+        opn, paramn = utils.get_tokens(cs:peekLast():gsub('"', ''))
+        cs:pop()
+        run(sapi, opn, paramn)
+    elseif op == "EXECI" then
+        local index = tonumber(param)
+        opn, paramn = utils.get_tokens(cs:getData()[index]:gsub('"', ''))
+        table.remove(cs:getData(), index)
+        run(sapi, opn, paramn)
+    elseif op == "EXECA" then
+        local cp = { table.unpack(cs:getData()) }
+        cs:clear()
+        for i = 1, #cp do
+            opn, paramn = utils.get_tokens(cp[i]:gsub('"', ''))
+            run(sapi, opn, paramn)
+        end
+        cp = nil
     elseif op == "DROP" then
         cs:pop()
     elseif op == "DUP" then

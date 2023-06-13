@@ -209,3 +209,18 @@ setup() {
     run lua ti.lua tests/inputs/stringops/merge
     assert_output "1 2 3"
 }
+
+@test "exec" {
+    run lua ti.lua tests/inputs/stringops/exec
+    assert_output "2"
+}
+
+@test "execi" {
+    run lua ti.lua tests/inputs/stringops/execi
+    assert_output "3"
+}
+
+@test "execa" {
+    run lua ti.lua tests/inputs/stringops/execa
+    assert_output "1 2 3"
+}

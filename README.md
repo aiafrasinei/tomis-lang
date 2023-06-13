@@ -30,12 +30,13 @@ Language supports a stack api
 Any number of stacks can be created (each having a name).
 2 stacks are created at initialization: “default” and “temp”
 
-API as language statements:
+API:
 
-    stack operations:
+Basic stack operations:
+
     _ element            : push a string or number
     _                    : pop
-    FPUSH "filename"     : push the content of the file on top of stack
+    _f "filename"     : push the content of the file on top of stack
     @ index              : peek index (number or TOS)
     DEPTH                : push the depth of the stack
 
@@ -56,10 +57,13 @@ notation meaning ( initial stack - after operation stack)
     2ROT     : ( n1 n2 n3 n4 n5 n6 - n3 n4 n5 n6 n1 n2 )
     2MINROT  : ( n1 n2 n3 n4 n5 n6 - n5 n6 n1 n2 n3 n4 )
 
-Stack string ops:
+Stack ops for strings:
 
-    SPLIT    : split the string using space separator and push the elements
+    SPLIT    : split the string from tos using space separator and push the elements
     MERGE    : pop and merge all stack elements in a string and push it at the top
+    EXEC     : execute the string on the tos
+    EXECI    : execute the string at index
+    EXECA    : execute all the strings on the stack
 
 API to create stacks:
 
