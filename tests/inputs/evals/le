@@ -1,4 +1,4 @@
-FPUSH "tests/inputs/evals/test.lua"
+F_ "tests/inputs/evals/test.lua"
 _ 1234
 LUAEVAL
 SPRINT

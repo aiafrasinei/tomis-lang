@@ -1,11 +1,10 @@
-# tomis lang interpreter
+-- tomis lang interpreter
 
-require "impls.lua.stackapi"
-local pt = require "impls.lua.pt"
-local utils = require "impls.lua.utils"
+require "stackapi"
+local pt = require "pt"
+local utils = require "utils"
 
-
-local VERSION = "0.1.0"
+local VERSION = "0.1.1"
 
 local sapi = StackApi:new()
 current_stack = "default";
@@ -67,6 +66,10 @@ local function run(sapi, op, param)
             run(sapi, opn, paramn)
         end
         cp = nil
+    elseif op == "LINK" then
+        -- TODO
+        current_stack = param:gsub('"', '')
+        cs = sapi:getStack(current_stack)
     elseif op == "DROP" then
         cs:pop()
     elseif op == "DUP" then
@@ -113,7 +116,7 @@ local function run(sapi, op, param)
         cs:push(ins)
     elseif op == "PRINT" then
         print(param)
-    elseif op == "FPUSH" then
+    elseif op == "F_" then
         local fname = param:gsub('"', '')
         local f = io.open(fname, "rb")
         local data = f:read("*all")
@@ -166,7 +169,7 @@ local function run(sapi, op, param)
 end
 
 local op, param, input
-if arg[1] == "-i" then
+if #arg == 0 then
     -- print("Tomis " .. VERSION)
 
     while true do

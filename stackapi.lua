@@ -1,4 +1,4 @@
-require "impls.lua.stack"
+require "stack"
 
 StackApi = {}
 StackApi.__index = StackApi
