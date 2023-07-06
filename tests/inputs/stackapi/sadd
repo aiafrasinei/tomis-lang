@@ -1,5 +1,5 @@
 _ 1
-SADD "new"
-SUSE "new"
+SADD new
+SUSE new
 _ 2
 SPRINT

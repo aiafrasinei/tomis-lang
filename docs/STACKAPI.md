@@ -4,8 +4,8 @@ Basic stack operations:
 
     _ element            : push a string or number
     _                    : pop
-    F_ "$filename"        : push the content of the file on top of stack
-    @ index              : peek index (number or TOS)
+    F_ $filename        : push the content of the file on top of stack
+    @ index              : peek index (number or TOS, BOS)
     DEPTH                : push the depth of the stack
 
 Stack ops:
@@ -35,11 +35,11 @@ Stack ops for strings:
 
 API to create stacks:
 
-    SUSE “name”     : change the current stack
-    SADD “name”     : add stack
-    SRM “name”      : stack remove
-    SREP “name”     : stack replace
-    SCLEAR “name”   : stack clear
+    SUSE name       : change the current stack
+    SADD name       : add stack
+    SRM name        : stack remove
+    SREP name       : stack replace
+    SCLEAR name    : stack clear
     SRA             : remove all stacks
     SNR             : number of stacks
 
@@ -55,20 +55,20 @@ Expects 2 elements on the current stack, pops the 2 elements and push the result
 
 Input/Output:
 
-    PRINT "string"  : print the param
+    PRINT string    : print the param
     INPUT           : get the input from stdin and push the value on the tos
 
 Evaluations:
 
     Can be used as a reverse polish notation calculator.
 
-    RPNEVAL "rpn_ops"    : reverse polish notation evaluation
+    RPNEVAL rpn_ops      : reverse polish notation evaluation
     Expects a rpn expression (applies all the arithmetic ops using the current stack)
-    example: RPNEVAL "1 2 + 3 +" will leave the result 6 at the top
+    example: RPNEVAL 1 2 + 3 + will leave the result 6 at the top
 
     Evaluate lua code on the stack
 
-    LUAEVAL "lua code"    : evaluate lua code on the top of stack
+    LUAEVAL lua code     : evaluate lua code on the top of stack
     Expects a valid lua code on the current stack
     Execute the code and push the result at the top
 

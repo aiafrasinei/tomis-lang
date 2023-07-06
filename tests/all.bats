@@ -120,6 +120,11 @@ setup() {
     assert_output "2"
 }
 
+@test "peek4" {
+    run lua ti.lua tests/inputs/stackops/peek4
+    assert_output "1"
+}
+
 @test "push" {
     run lua ti.lua tests/inputs/stackops/push
     assert_output "1 2 3"
@@ -137,7 +142,7 @@ setup() {
 
 @test "suse" {
     run lua ti.lua tests/inputs/stackapi/suse
-    assert_output "\"first\""
+    assert_output "first"
 }
 
 @test "stack remove" {
@@ -172,7 +177,7 @@ setup() {
 
 @test "print" {
     run lua ti.lua tests/inputs/io/print
-    assert_output "\"Hello World!\""
+    assert_output "Hello World!"
 }
 
 @test "fpush" {

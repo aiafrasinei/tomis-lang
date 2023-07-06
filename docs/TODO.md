@@ -1,5 +1,6 @@
 # todos
 
-    - modules
-    - add more tests
-    - 
+    x modules
+    x add more tests
+    x while
+  

@@ -2,22 +2,15 @@
 
 ## Interpreter
 
-lua implementation:
+The interpreter is implemented in lua.
 
 To run an input file:
 
-    lua ti.lua input
+    lua ti.lua input.t
 
 Interactive mode:
 
-    lua ti
-
-
-Read TESTS.md for how to run the tests
-
-Tests inputs are in tests/inputs
-
-Check the examples directory
+    lua ti.lua
 
 ## Tests
 

@@ -1,9 +1,9 @@
 _ 1
 _ 2
 _ 3
-SUSE "temp"
-SRM "default"
-SADD "default"
-SUSE "default"
+SUSE temp
+SRM default
+SADD default
+SUSE default
 _ "alive"
 SPRINT
