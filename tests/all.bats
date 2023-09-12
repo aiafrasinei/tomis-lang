@@ -229,3 +229,28 @@ setup() {
     run lua ti.lua tests/inputs/stringops/execa
     assert_output "1 2 3"
 }
+
+@test "simplebreak" {
+    run lua ti.lua tests/inputs/while/simplebreak
+    assert_output "test3"
+}
+
+@test "simplebreakalt" {
+    run lua ti.lua tests/inputs/while/simplebreakalt
+    assert_output "test2"
+}
+
+@test "specialbreak" {
+    run lua ti.lua tests/inputs/while/specialbreak
+    assert_output "test1"
+}
+
+@test "printbeforewhile" {
+    run lua ti.lua tests/inputs/while/printbeforewhile
+    assert_output "test"
+}
+
+@test "printafterwhile" {
+    run lua ti.lua tests/inputs/while/printafterwhile
+    assert_output "test"
+}

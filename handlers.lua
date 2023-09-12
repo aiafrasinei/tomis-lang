@@ -164,6 +164,9 @@ function handlers.run(sapi, op, param)
         cs:pop()
         cs:push(fs)
     elseif op == "#" then
+    elseif op == "WHILE" then
+    elseif op == "END" then
+    elseif op == "BREAK" then
     else
         print("ERR: op " .. op .. " not recognized")
     end

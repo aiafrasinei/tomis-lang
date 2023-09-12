@@ -1,6 +1,7 @@
 # rpn calculator
 
-PRINT Insert operation:
+WHILE
 INPUT
 RPNEVAL
 @ TOS
+END

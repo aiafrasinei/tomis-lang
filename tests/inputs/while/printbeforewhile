@@ -1,0 +1,4 @@
+PRINT test
+WHILE
+BREAK
+END
