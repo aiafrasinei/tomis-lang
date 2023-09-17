@@ -12,6 +12,8 @@ Interactive mode:
 
     lua ti.lua
 
+## Translator to lua
+
 ## Tests
 
 Read docs/TESTS.md on how to run the tests

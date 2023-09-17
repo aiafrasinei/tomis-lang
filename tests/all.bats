@@ -254,3 +254,8 @@ setup() {
     run lua ti.lua tests/inputs/while/printafterwhile
     assert_output "test"
 }
+
+@test "2whilebreak" {
+    run lua ti.lua tests/inputs/while/2whilebreak
+    assert_output "test"
+}

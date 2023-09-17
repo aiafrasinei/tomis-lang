@@ -13,7 +13,7 @@ local input = ""
 
 local op, param
 
-function tokandrun(lines, i, sapi, op, param)
+function runtokens(lines, i, sapi, op, param)
     if not utils.isempty(lines[i]) then
         op, param = utils.get_tokens(lines[i])
         handlers.run(sapi, op, param)
@@ -47,7 +47,9 @@ else
                     whileinfos[#whileinfos][2] = i
                 end
                 if i == #lines then
-                    whileinfos[1][2] = i
+                    if whileinfos[1][2] == 0 then
+                        whileinfos[1][2] = i
+                    end
                 end
             end
         end
@@ -55,14 +57,14 @@ else
 
     if #whileinfos == 0 then
         for i = 1, #lines do
-            tokandrun(lines, i, sapi, op, param)
+            runtokens(lines, i, sapi, op, param)
         end
     else
         --print(pt.pt(whileinfos))
         --os.exit(1)
 
         for i = 1, whileinfos[1][1] do
-            tokandrun(lines, i, sapi, op, param)
+            runtokens(lines, i, sapi, op, param)
         end
 
         while true do
@@ -97,8 +99,8 @@ else
                     end
 
                     while true do
-                        for k = whileinfos[#whileinfos][1], whileinfos[#whileinfos][2] do
-                            tokandrun(lines, k, sapi, op, param)
+                        for j = whileinfos[#whileinfos][1] + 1, whileinfos[#whileinfos][2] do
+                            runtokens(lines, j, sapi, op, param)
                         end
                     end
                 end
