@@ -6,13 +6,19 @@ The interpreter is implemented in lua.
 
 To run an input file:
 
-    lua ti.lua input.t
+    lua tomis.lua input.t
 
 Interactive mode:
 
-    lua ti.lua
+    lua tomis.lua
 
-## Translator to lua
+## Transpiler to lua
+
+Transform tomis code to lua.
+
+Example:
+
+    lua tomis2lua.lua input.t output.lua
 
 ## Tests
 

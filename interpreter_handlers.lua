@@ -1,8 +1,8 @@
-local handlers = {}
+local interpreter_handlers = {}
 
 local utils = require "utils"
 
-function handlers.run(sapi, op, param)
+function interpreter_handlers.run(sapi, op, param)
     local cs = sapi:getStack(_G.current_stack)
 
     if op == "_" then
@@ -54,18 +54,18 @@ function handlers.run(sapi, op, param)
     elseif op == "EXEC" then
         opn, paramn = utils.get_tokens(cs:peekLast())
         cs:pop()
-        handlers.run(sapi, opn, paramn)
+        interpreter_handlers.run(sapi, opn, paramn)
     elseif op == "EXECI" then
         local index = tonumber(param)
         opn, paramn = utils.get_tokens(cs:getData()[index])
         table.remove(cs:getData(), index)
-        handlers.run(sapi, opn, paramn)
+        interpreter_handlers.run(sapi, opn, paramn)
     elseif op == "EXECA" then
         local cp = { table.unpack(cs:getData()) }
         cs:clear()
         for i = 1, #cp do
             opn, paramn = utils.get_tokens(cp[i])
-            handlers.run(sapi, opn, paramn)
+            interpreter_handlers.run(sapi, opn, paramn)
         end
         cp = nil
     elseif op == "LINK" then
@@ -172,4 +172,4 @@ function handlers.run(sapi, op, param)
     end
 end
 
-return handlers
+return interpreter_handlers

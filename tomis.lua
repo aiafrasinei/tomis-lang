@@ -3,7 +3,7 @@
 require "stackapi"
 local pt = require "pt"
 local utils = require "utils"
-local handlers = require "handlers"
+local handlers = require "interpreter_handlers"
 
 local VERSION = "0.1.2"
 
