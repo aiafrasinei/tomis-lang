@@ -309,3 +309,27 @@ setup() {
     run lua output.lua
     assert_output "test"
 }
+
+@test "incr" {
+    run lua tomis2lua.lua tests/inputs/stackops/incr output.lua
+    run lua output.lua
+    assert_output "2"
+}
+
+@test "decr" {
+    run lua tomis2lua.lua tests/inputs/stackops/decr output.lua
+    run lua output.lua
+    assert_output "1"
+}
+
+@test "incr2" {
+    run lua tomis2lua.lua tests/inputs/stackops/incr2 output.lua
+    run lua output.lua
+    assert_output "3"
+}
+
+@test "decr2" {
+    run lua tomis2lua.lua tests/inputs/stackops/decr2 output.lua
+    run lua output.lua
+    assert_output "1"
+}

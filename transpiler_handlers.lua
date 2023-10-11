@@ -93,6 +93,18 @@ function transpiler_handlers.run(of, op, param)
         of:write("cs:division()\n")
     elseif op == "%" then
         of:write("cs:modulo()\n")
+    elseif op == "INCR" then
+        of:write("if" .. param .. " == \"\" then")
+        of:write("cs:increment(1)")
+        of:write("else")
+        of:write("cs:increment(tonumber(param))")
+        of:write("end")
+    elseif op == "DECR" then
+        of:write("if" .. param .. " == \"\" then")
+        of:write("cs:decrement(1)")
+        of:write("else")
+        of:write("cs:decrement(tonumber(param))")
+        of:write("end")
     elseif op == "." then
         of:write("print(cs:peekLast())\n")
         of:write("cs:pop()\n")

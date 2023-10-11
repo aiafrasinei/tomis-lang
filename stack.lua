@@ -34,10 +34,12 @@ end
 
 function Stack:printData()
     local tostr = self.stack[1]
-    for i = 2, #self.stack do
-        tostr = tostr .. " " .. self.stack[i]
+    if tostr ~= nil then
+        for i = 2, #self.stack do
+            tostr = tostr .. " " .. self.stack[i]
+        end
+        io.write(tostr)
     end
-    io.write(tostr)
 end
 
 function Stack:depth()
@@ -242,4 +244,12 @@ function Stack:modulo()
     local res = self.stack[#self.stack - 1] % self.stack[#self.stack]
     self:stackCleanForOp()
     table.insert(self.stack, res)
+end
+
+function Stack:increment(nr)
+    self.stack[#self.stack] = self.stack[#self.stack] + nr
+end
+
+function Stack:decrement(nr)
+    self.stack[#self.stack] = self.stack[#self.stack] - nr
 end

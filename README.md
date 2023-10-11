@@ -1,5 +1,10 @@
 # tomis-lang
 
+Experiment.
+Simple language.
+Feature a interpreter (lua) and a traspiler to lua.
+Uses a stack to pass parameters to functions.
+
 ## Interpreter
 
 The interpreter is implemented in lua.

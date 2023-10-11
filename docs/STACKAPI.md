@@ -25,6 +25,11 @@ notation meaning ( initial stack - after operation stack)
     2ROT     : ( n1 n2 n3 n4 n5 n6 - n3 n4 n5 n6 n1 n2 )
     2MINROT  : ( n1 n2 n3 n4 n5 n6 - n5 n6 n1 n2 n3 n4 )
 
+    INCR     : ( n - (n+1) )
+    INCR nr  : ( n - (n+nr) )
+    DECR     : ( n - (n-1) )
+    DECR nr  : ( n - (n-nr) )
+
 Stack ops for strings:
 
     SPLIT    : split the string from tos using space separator and push the elements

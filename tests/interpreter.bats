@@ -259,3 +259,38 @@ setup() {
     run lua tomis.lua tests/inputs/while/2whilebreak
     assert_output "test"
 }
+
+@test "incr" {
+    run lua tomis.lua tests/inputs/stackops/incr
+    assert_output "2"
+}
+
+@test "decr" {
+    run lua tomis.lua tests/inputs/stackops/decr
+    assert_output "1"
+}
+
+@test "incr2" {
+    run lua tomis.lua tests/inputs/stackops/incr2
+    assert_output "3"
+}
+
+@test "decr2" {
+    run lua tomis.lua tests/inputs/stackops/decr2
+    assert_output "1"
+}
+
+@test "for" {
+    run lua tomis.lua tests/inputs/while/for
+    assert_output "test"
+}
+
+@test "forlessequal" {
+    run lua tomis.lua tests/inputs/while/forlessequal
+    assert_output "test"
+}
+
+@test "multipush" {
+    run lua tomis.lua tests/inputs/stackops/multipush
+    assert_output "2 3 4"
+}

@@ -13,10 +13,10 @@ local input = ""
 
 local op, param
 
-function runtokens(lines, i, sapi, op, param)
+function runtokens(lines, i, sapi, op, param, whileinfos)
     if not utils.isempty(lines[i]) then
         op, param = utils.get_tokens(lines[i])
-        handlers.run(sapi, op, param)
+        handlers.run(sapi, op, param, whileinfos)
     end
 end
 
@@ -30,7 +30,7 @@ if #arg == 0 then
         handlers.run(sapi, op, param)
     end
 else
-    -- { while index, end index, break present }
+    -- { while index, end index, break present, top element in stack ,params }
     local whileinfos = {}
 
     local lines = utils.lines_from(arg[1])
@@ -39,7 +39,13 @@ else
         if not utils.isempty(lines[i]) then
             op, param = utils.get_tokens(lines[i])
             if op == "WHILE" then
-                table.insert(whileinfos, { i, 0, 0 })
+                table.insert(whileinfos, { i, 0, 0, 0, 0 })
+
+                local wops = utils.split_string(param, " ")
+                if wops == nil then
+                    wops = {}
+                end
+                whileinfos[#whileinfos][5] = wops
             elseif op == "BREAK" then
                 whileinfos[#whileinfos][3] = 1
             elseif op == "END" then
@@ -57,57 +63,39 @@ else
 
     if #whileinfos == 0 then
         for i = 1, #lines do
-            runtokens(lines, i, sapi, op, param)
+            runtokens(lines, i, sapi, op, param, whileinfos)
         end
     else
         --print(pt.pt(whileinfos))
         --os.exit(1)
 
         for i = 1, whileinfos[1][1] do
-            runtokens(lines, i, sapi, op, param)
+            runtokens(lines, i, sapi, op, param, whileinfos)
         end
 
-        while true do
+        if whileinfos[1][4] == nil or whileinfos[1][4] == 0 then
+            while true do
+                breaked = handlers.while_handler(handlers, whileinfos, lines, sapi, op, param)
+
+                if breaked then
+                    break
+                end
+            end
+        else
             for i = 1, #whileinfos do
-                if whileinfos[i][3] == 1 then
-                    for j = whileinfos[i][1], whileinfos[i][2] do
-                        if lines[j] ~= nil then
-                            if op == "BREAK" then
-                                breaked = true
+                local start = whileinfos[i][4]
+                local fin = whileinfos[i][5][2] - 1
+                if whileinfos[i][5][1] == "<=" then
+                    fin = whileinfos[i][5][2]
+                end
 
-                                for k = whileinfos[i][2], #lines do
-                                    op, param = utils.get_tokens(lines[k])
-                                    handlers.run(sapi, op, param)
-                                end
-
-                                break
-                            end
-                            op, param = utils.get_tokens(lines[j])
-                            handlers.run(sapi, op, param)
-                        end
-                    end
+                for i = start, fin do
+                    breaked = handlers.while_handler(handlers, whileinfos, lines, sapi, op, param)
 
                     if breaked then
                         break
                     end
-                else
-                    for l = 2, #whileinfos do
-                        for j = whileinfos[#whileinfos][1], whileinfos[#whileinfos][2] do
-                            lines[j] = nil
-                        end
-                        table.remove(whileinfos)
-                    end
-
-                    while true do
-                        for j = whileinfos[#whileinfos][1] + 1, whileinfos[#whileinfos][2] do
-                            runtokens(lines, j, sapi, op, param)
-                        end
-                    end
                 end
-            end
-
-            if breaked then
-                break
             end
         end
     end

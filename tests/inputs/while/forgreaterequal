@@ -1,0 +1,4 @@
+_ 0
+WHILE > 2
+PRINT test
+END
