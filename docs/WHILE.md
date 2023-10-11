@@ -11,12 +11,6 @@ BREAK
 
 generic WHILE using the stack:
 
-_ 0
-WHILE < 3
-END
-
-generic WHILE using the stack:
-
-_ 0
-WHILE < 3
+_ 0 < 3 --
+WHILE
 END

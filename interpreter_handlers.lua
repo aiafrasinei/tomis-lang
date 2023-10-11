@@ -53,7 +53,7 @@ function interpreter_handlers.while_handler(handlers, whileinfos, lines, sapi, o
             end
 
             if whileinfos[#whileinfos][4] ~= "" then
-                for j = whileinfos[#whileinfos][4], whileinfos[#whileinfos][2] do
+                for j = whileinfos[#whileinfos][1] + 1, whileinfos[#whileinfos][2] do
                     runtokens(lines, j, sapi, op, param, whileinfos)
                 end
             else
@@ -241,26 +241,22 @@ function interpreter_handlers.run(sapi, op, param, whileinfos)
         cs:push(fs)
     elseif op == "#" then
     elseif op == "WHILE" then
-        local wops = utils.split_string(param, " ")
-        if param ~= "" then
-            if wops[1] == "<" or wops[1] == ">" or wops[1] == ">=" or wops[1] == "<=" then
-            else
-                print("ERR: WHILE comparator not recognized");
+        if param == "" then
+            local comp = cs:peek(cs:depth() - 2)
+            if comp ~= nil then
+                if comp == "<" or comp == ">" or comp == ">=" or comp == "<=" then
+                else
+                    print("ERR: WHILE comparator not recognized");
+                end
             end
 
-            if type(tonumber(wops[2])) ~= "number" then
-                print("ERR: WHILE parameter not a number")
-            end
-
-            if #wops > 2 then
-                print("ERR: WHILE 2 params required")
-            end
-
-            if cs:peekLast() == wops[2] then
+            if cs:peek(cs:depth() - 3) == cs:peek(cs:depth() - 1) then
                 op = "BREAK"
             end
+        else
+            print("ERR: WHILE ivalid usage, parameters expected on the stack")
         end
-        whileinfos[#whileinfos][4] = cs:peekLast()
+        whileinfos[#whileinfos][4] = cs
     elseif op == "END" then
     elseif op == "BREAK" then
     else

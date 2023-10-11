@@ -30,7 +30,7 @@ if #arg == 0 then
         handlers.run(sapi, op, param)
     end
 else
-    -- { while index, end index, break present, top element in stack ,params }
+    -- { while index, end index, break present, the stack }
     local whileinfos = {}
 
     local lines = utils.lines_from(arg[1])
@@ -39,13 +39,7 @@ else
         if not utils.isempty(lines[i]) then
             op, param = utils.get_tokens(lines[i])
             if op == "WHILE" then
-                table.insert(whileinfos, { i, 0, 0, 0, 0 })
-
-                local wops = utils.split_string(param, " ")
-                if wops == nil then
-                    wops = {}
-                end
-                whileinfos[#whileinfos][5] = wops
+                table.insert(whileinfos, { i, 0, 0, 0 })
             elseif op == "BREAK" then
                 whileinfos[#whileinfos][3] = 1
             elseif op == "END" then
@@ -73,7 +67,7 @@ else
             runtokens(lines, i, sapi, op, param, whileinfos)
         end
 
-        if whileinfos[1][4] == nil or whileinfos[1][4] == 0 then
+        if whileinfos[1][4] == nil or whileinfos[1][4] == 0 or whileinfos[1][4]:depth() == 0 then
             while true do
                 breaked = handlers.while_handler(handlers, whileinfos, lines, sapi, op, param)
 
@@ -83,10 +77,11 @@ else
             end
         else
             for i = 1, #whileinfos do
-                local start = whileinfos[i][4]
-                local fin = whileinfos[i][5][2] - 1
-                if whileinfos[i][5][1] == "<=" then
-                    fin = whileinfos[i][5][2]
+                local cs = whileinfos[i][4]
+                local start = cs:peek(cs:depth() - 3)
+                local fin = cs:peek(cs:depth() - 1) - 1
+                if cs:peek(cs:depth() - 2) == "<=" then
+                    fin = cs:peek(cs:depth() - 1)
                 end
 
                 for i = start, fin do

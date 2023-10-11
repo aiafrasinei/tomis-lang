@@ -1,4 +1,4 @@
-_ 0
-WHILE < 1
+_ 0 < 1 ++
+WHILE
 PRINT test
 END
