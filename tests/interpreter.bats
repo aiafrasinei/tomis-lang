@@ -280,13 +280,23 @@ setup() {
     assert_output "1"
 }
 
-@test "for" {
-    run lua tomis.lua tests/inputs/while/for
+@test "while" {
+    run lua tomis.lua tests/inputs/while/while
     assert_output "test"
 }
 
-@test "forlessequal" {
-    run lua tomis.lua tests/inputs/while/forlessequal
+@test "whilelessequal" {
+    run lua tomis.lua tests/inputs/while/whilelessequal
+    assert_output "test"
+}
+
+@test "whilewithincr" {
+    run lua tomis.lua tests/inputs/while/whilewithincr
+    assert_output "test"
+}
+
+@test "while2incr" {
+    run lua tomis.lua tests/inputs/while/while2incr
     assert_output "test"
 }
 

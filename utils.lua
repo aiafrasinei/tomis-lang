@@ -45,4 +45,9 @@ function utils.isempty(s)
     return s == nil or s == ""
 end
 
+function utils.fatalerr(text, errcode)
+    print(text)
+    os.exit(errcode)
+end
+
 return utils

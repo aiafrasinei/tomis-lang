@@ -242,19 +242,15 @@ function interpreter_handlers.run(sapi, op, param, whileinfos)
     elseif op == "#" then
     elseif op == "WHILE" then
         if param == "" then
-            local comp = cs:peek(cs:depth() - 2)
-            if comp ~= nil then
-                if comp == "<" or comp == ">" or comp == ">=" or comp == "<=" then
-                else
-                    print("ERR: WHILE comparator not recognized");
-                end
-            end
-
             if cs:peek(cs:depth() - 3) == cs:peek(cs:depth() - 1) then
                 op = "BREAK"
             end
+
+            --if cs:depth() < 2 then
+            --    utils.fatalerr("ERR: WHILE ivalid usage, at least 2 parameters expected on the stack")
+            --end
         else
-            print("ERR: WHILE ivalid usage, parameters expected on the stack")
+            utils.fatalerr("ERR: WHILE ivalid usage, parameters expected on the stack")
         end
         whileinfos[#whileinfos][4] = cs
     elseif op == "END" then

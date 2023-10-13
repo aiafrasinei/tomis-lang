@@ -78,13 +78,23 @@ else
         else
             for i = 1, #whileinfos do
                 local cs = whileinfos[i][4]
-                local start = cs:peek(cs:depth() - 3)
-                local fin = cs:peek(cs:depth() - 1) - 1
-                if cs:peek(cs:depth() - 2) == "<=" then
+                local start = 1
+                local fin = 1
+                if cs:depth() == 2 then
+                    start = cs:peek(cs:depth() - 1)
+                    fin = cs:peek(cs:depth())
+                elseif cs:depth() > 2 then
+                    start = cs:peek(cs:depth() - 2)
                     fin = cs:peek(cs:depth() - 1)
                 end
 
-                for i = start, fin do
+                local incr = 1
+                local maybeincr = tonumber(cs:peekLast())
+                if maybeincr ~= nil then
+                    incr = maybeincr
+                end
+
+                for i = start, fin, incr do
                     breaked = handlers.while_handler(handlers, whileinfos, lines, sapi, op, param)
 
                     if breaked then
