@@ -1,7 +1,7 @@
 # fizz buzz
 
-_ 0
-WHILE < 51
+_ 1 51
+WHILE
     INCR
     IF % 2 == 0 AND % 3 == 0
         PRINT fizzbuzz
@@ -11,4 +11,5 @@ WHILE < 51
         PRINT buzz
     ELSE
         @ TOS
-
+    ;
+;

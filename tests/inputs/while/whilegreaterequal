@@ -1,4 +1,4 @@
 _ 0 2
 WHILE
 PRINT test
-END
+;

@@ -3,5 +3,5 @@ PRINT test1
 BREAK
 WHILE
 PRINT test2
-END
-END
+;
+;

@@ -3,14 +3,16 @@
 infinite while:
 
 WHILE
-END
+;
 
 breaking from while:
 
 BREAK
 
-generic WHILE using the stack:
+WHILE using the stack:
+expected on the stack ( start end increment(optional default 1) )
 
-_ 0 < 3 --
+_ 1 3 1
 WHILE
-END
+    PRINT test
+;

@@ -1,4 +1,4 @@
 WHILE
 PRINT test2
 BREAK
-END
+;

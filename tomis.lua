@@ -42,7 +42,7 @@ else
                 table.insert(whileinfos, { i, 0, 0, 0 })
             elseif op == "BREAK" then
                 whileinfos[#whileinfos][3] = 1
-            elseif op == "END" then
+            elseif op == ";" then
                 if whileinfos[#whileinfos][2] == 0 then
                     whileinfos[#whileinfos][2] = i
                 end

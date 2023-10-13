@@ -1,7 +1,7 @@
 WHILE
 BREAK
-END
+;
 PRINT test
 WHILE
 BREAK
-END
+;

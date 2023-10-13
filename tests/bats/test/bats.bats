@@ -1185,7 +1185,7 @@ END_OF_ERR_MSG
   [ "${lines[3]}" == '#   😁eval "( exit ${STATUS:-1} )"😂 failed' ]
 }
 
-@test "BATS_CODE_QUOTE_STYLE=custom requires BATS_CODE_QUOTE_BEGIN/END" {
+@test "BATS_CODE_QUOTE_STYLE=custom requires BATS_CODE_QUOTE_BEGIN/;" {
   # unset because they are set in the surrounding scope
   unset BATS_BEGIN_CODE_QUOTE BATS_END_CODE_QUOTE
 

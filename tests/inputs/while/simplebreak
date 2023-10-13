@@ -1,5 +1,5 @@
 WHILE
 BREAK
 PRINT test2
-END
+;
 PRINT test3

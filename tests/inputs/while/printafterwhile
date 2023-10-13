@@ -1,4 +1,4 @@
 WHILE
 BREAK
-END
+;
 PRINT test

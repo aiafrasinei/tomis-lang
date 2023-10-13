@@ -253,7 +253,7 @@ function interpreter_handlers.run(sapi, op, param, whileinfos)
             utils.fatalerr("ERR: WHILE ivalid usage, parameters expected on the stack")
         end
         whileinfos[#whileinfos][4] = cs
-    elseif op == "END" then
+    elseif op == ";" then
     elseif op == "BREAK" then
     else
         if tonumber(op) == nil then

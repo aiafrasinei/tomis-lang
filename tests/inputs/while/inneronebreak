@@ -1,7 +1,7 @@
 WHILE
 WHILE
-END
+;
 WHILE
 PRINT test2
-END
-END
+;
+;
