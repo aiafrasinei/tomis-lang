@@ -2,10 +2,18 @@ local transpiler_handlers = {}
 
 local utils = require "utils"
 
+
 function transpiler_handlers.run(of, op, param)
     if op == "_" then
-        if param ~= nil and param ~= "" then
-            of:write("cs:push(" .. param .. ")\n")
+        local params = utils.split_string(param, " ")
+        if param ~= "" then
+            if #params == 1 then
+                of:write("cs:push(" .. params[1] .. ")\n")
+            else
+                for i = 1, #params do
+                    of:write("cs:push(" .. params[i] .. ")\n")
+                end
+            end
         else
             of:write("cs:pop()\n")
         end
