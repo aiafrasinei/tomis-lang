@@ -4,7 +4,7 @@ local utils = require "utils"
 
 function transpiler_handlers.run(of, op, param)
     if op == "_" then
-        if param ~= nil then
+        if param ~= nil and param ~= "" then
             of:write("cs:push(" .. param .. ")\n")
         else
             of:write("cs:pop()\n")
@@ -33,7 +33,7 @@ function transpiler_handlers.run(of, op, param)
             of:write("end\n")
             of:write("end\n")
         else
-            of:write("print(cs:peek(tonumber(param)))\n")
+            of:write("print(cs:peek(tonumber(" .. param .. ")))\n")
         end
     elseif op == "SPLIT" then
         of:write("local tos = cs:peekLast()\n")
@@ -94,17 +94,25 @@ function transpiler_handlers.run(of, op, param)
     elseif op == "%" then
         of:write("cs:modulo()\n")
     elseif op == "INCR" then
-        of:write("if" .. param .. " == \"\" then")
-        of:write("cs:increment(1)")
-        of:write("else")
-        of:write("cs:increment(tonumber(param))")
-        of:write("end")
+        if param == nil or param == "" then
+            of:write("cs:increment(1)\n")
+        else
+            of:write("if " .. param .. " == \"\" then\n")
+            of:write("cs:increment(1)\n")
+            of:write("else\n")
+            of:write("cs:increment(tonumber(" .. param .. "))\n")
+            of:write("end\n")
+        end
     elseif op == "DECR" then
-        of:write("if" .. param .. " == \"\" then")
-        of:write("cs:decrement(1)")
-        of:write("else")
-        of:write("cs:decrement(tonumber(param))")
-        of:write("end")
+        if param == nil or param == "" then
+            of:write("cs:decrement(1)\n")
+        else
+            of:write("if " .. param .. " == \"\" then\n")
+            of:write("cs:decrement(1)\n")
+            of:write("else\n")
+            of:write("cs:decrement(tonumber(" .. param .. "))\n")
+            of:write("end\n")
+        end
     elseif op == "." then
         of:write("print(cs:peekLast())\n")
         of:write("cs:pop()\n")
@@ -116,7 +124,7 @@ function transpiler_handlers.run(of, op, param)
     elseif op == "PRINT" then
         of:write("print(\"" .. param .. "\")\n");
     elseif op == "F_" then
-        of:write("local f = io.open(" .. param .. ", \"rb\")\n")
+        of:write("local f = io.open(\"" .. param .. "\", \"rb\")\n")
         of:write("local data = f:read(\"*all\")\n")
         of:write("f:close()\n")
         of:write("cs:push(data)\n")
@@ -164,7 +172,7 @@ function transpiler_handlers.run(of, op, param)
         of:write("-- " .. param .. "\n")
     elseif op == "WHILE" then
         of:write("while(true) do\n")
-    elseif op == "END" then
+    elseif op == ";" then
         of:write("end\n")
     elseif op == "BREAK" then
         of:write("break\n")
