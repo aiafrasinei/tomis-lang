@@ -33,12 +33,14 @@ function Stack:getData()
 end
 
 function Stack:printData()
-    local tostr = self.stack[1]
-    if tostr ~= nil then
-        for i = 2, #self.stack do
-            tostr = tostr .. " " .. self.stack[i]
+    if self.stack ~= nil then
+        local tostr = self.stack[1]
+        if tostr ~= nil then
+            for i = 2, #self.stack do
+                tostr = tostr .. " " .. self.stack[i]
+            end
+            io.write(tostr)
         end
-        io.write(tostr)
     end
 end
 

@@ -137,16 +137,16 @@ function transpiler_handlers.run(of, op, param)
         of:write("f:close()\n")
         of:write("cs:push(data)\n")
     elseif op == "SUSE" then
-        of:write("_G.current_stack = " .. param .. "\n")
+        of:write("_G.current_stack = \"" .. param .. "\"\n")
         of:write("cs = sapi:getStack(_G.current_stack)\n")
     elseif op == "SADD" then
-        of:write("sapi:adde(" .. param .. ")\n")
+        of:write("sapi:adde(\"" .. param .. "\")\n")
     elseif op == "SRM" then
-        of:write("sapi:remove(" .. param .. ")\n")
+        of:write("sapi:remove(\"" .. param .. "\")\n")
     elseif op == "SREP" then
-        -- TODO ALEX
+        of:write("sapi:copy(_G.current_stack, \"" .. param .. "\")\n")
     elseif op == "SCLEAR" then
-        of:write("sapi:clear(" .. param .. ")\n")
+        of:write("sapi:clear(\"" .. param .. "\")\n")
     elseif op == "SRA" then
         of:write("sapi:removeall()\n")
     elseif op == "SNR" then
@@ -184,6 +184,12 @@ function transpiler_handlers.run(of, op, param)
         of:write("end\n")
     elseif op == "BREAK" then
         of:write("break\n")
+    elseif op == "IF" then
+        of:write("if cs:peekLast() " .. param .. " then\n")
+    elseif op == "ELSEIF" then
+        of:write("elseif cs:peekLast() " .. param .. " then\n")
+    elseif op == "ELSE" then
+        of:write("else\n")
     else
         print("ERR: op " .. op .. " not recognized")
     end

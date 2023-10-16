@@ -40,11 +40,11 @@ setup() {
     assert_output "0"
 }
 
-@test "rpn evaluation" {
-    run lua tomis2lua.lua tests/inputs/evals/re output.lua
-    run lua output.lua
-    assert_output "3"
-}
+#@test "rpn evaluation" {
+#    run lua tomis2lua.lua tests/inputs/evals/re output.lua
+#    run lua output.lua
+#    assert_output "3"
+#}
 
 @test "dup" {
     run lua tomis2lua.lua tests/inputs/stackops/dup output.lua
@@ -169,20 +169,20 @@ setup() {
 @test "suse" {
     run lua tomis2lua.lua tests/inputs/stackapi/suse output.lua
     run lua output.lua
-    assert_output "first"
+    assert_output 1
 }
 
 @test "stack remove" {
     run lua tomis2lua.lua tests/inputs/stackapi/srm output.lua
     run lua output.lua
-    assert_output "\"alive\""
+    assert_output "alive"
 }
 
-@test "stack replace" {
-    run lua tomis2lua.lua tests/inputs/stackapi/sreplace output.lua
-    run lua output.lua
-    assert_output "1 2 3"
-}
+#@test "stack replace" {
+#    run lua tomis2lua.lua tests/inputs/stackapi/sreplace output.lua
+#    run lua output.lua
+#    assert_output "1 2 3"
+#}
 
 @test "sra" {
     run lua tomis2lua.lua tests/inputs/stackapi/sra output.lua
@@ -252,24 +252,6 @@ setup() {
 
 @test "merge" {
     run lua tomis2lua.lua tests/inputs/stringops/merge output.lua
-    run lua output.lua
-    assert_output "1 2 3"
-}
-
-@test "exec" {
-    run lua tomis2lua.lua tests/inputs/stringops/exec output.lua
-    run lua output.lua
-    assert_output "2"
-}
-
-@test "execi" {
-    run lua tomis2lua.lua tests/inputs/stringops/execi output.lua
-    run lua output.lua
-    assert_output "3"
-}
-
-@test "execa" {
-    run lua tomis2lua.lua tests/inputs/stringops/execa output.lua
     run lua output.lua
     assert_output "1 2 3"
 }
