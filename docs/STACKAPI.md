@@ -1,5 +1,11 @@
 # stackapi
 
+Language supports a stack api
+
+Any number of stacks can be created (each having a name).
+
+2 stacks are created at initialization: “default” and “temp”
+
 Basic stack operations:
 
     _ element            : push a string or number

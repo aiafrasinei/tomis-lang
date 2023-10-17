@@ -1,6 +1,6 @@
 # if
 
-Uses the top of stack element to make comparisons 
+Uses the top of stack element to make comparisons:
 
 IF < 0
     PRINT negative
