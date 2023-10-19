@@ -3,7 +3,7 @@
 _ 1 51
 WHILE
     INCR
-    IF % 2 == 0 AND % 3 == 0
+    IF _1 % 2 == 0 AND _1 % 3 == 0
         PRINT fizzbuzz
     ELSEIF % 3 == 0
         PRINT fizz

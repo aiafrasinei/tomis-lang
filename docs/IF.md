@@ -1,15 +1,8 @@
 # if
 
-Uses the top of stack element to make comparisons:
+_index - element from current stack at index
+stack_index
 
-IF < 0
-    PRINT negative
-ELSE IF > 0 
-    PRINT positive
-;
-
-IF < 0
-    PRINT negative
-ELSE
-    PRINT positive
+IF _1 % 2 == 0 and _2 % 3 == 0
+    PRINT test
 ;

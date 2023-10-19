@@ -2,17 +2,27 @@ local transpiler_handlers = {}
 
 local utils = require "utils"
 
+local function replaceStackAccess(param)
+    local start = 1
+    local fin = 1
+    while start ~= nil do
+        start = param:find("_", fin)
+        fin = param:find(" ", start)
+        if start ~= nil then
+            param = param:gsub(string.sub(param, start, fin - 1),
+                "cs:peek(" .. string.sub(param, start + 1, fin - 1) .. ")")
+        end
+    end
+
+    return param
+end
 
 function transpiler_handlers.run(of, op, param)
     if op == "_" then
-        local params = utils.split_string(param, " ")
         if param ~= "" then
-            if #params == 1 then
-                of:write("cs:push(" .. params[1] .. ")\n")
-            else
-                for i = 1, #params do
-                    of:write("cs:push(" .. params[i] .. ")\n")
-                end
+            local tokens = utils.split_string(param, " ")
+            for i = 1, #tokens do
+                of:write("cs:push(" .. tokens[i] .. ")\n")
             end
         else
             of:write("cs:pop()\n")
@@ -179,19 +189,32 @@ function transpiler_handlers.run(of, op, param)
     elseif op == "#" then
         of:write("-- " .. param .. "\n")
     elseif op == "WHILE" then
-        of:write("while(true) do\n")
+        if param == "" then
+            of:write("while(true) do\n")
+        else
+            local tokens = utils.split_string(param, " ")
+            if #tokens == 3 then
+                of:write("for i=" .. tokens[1] .. ", " .. tokens[2] .. ", " .. tokens[3] .. " do\n")
+            elseif #tokens == 2 then
+                of:write("for i=" .. tokens[1] .. ", " .. tokens[2] .. ", 1 do\n")
+            end
+        end
     elseif op == ";" then
         of:write("end\n")
     elseif op == "BREAK" then
         of:write("break\n")
     elseif op == "IF" then
-        of:write("if cs:peekLast() " .. param .. " then\n")
+        param = replaceStackAccess(param)
+        of:write("if " .. param .. " then\n")
     elseif op == "ELSEIF" then
-        of:write("elseif cs:peekLast() " .. param .. " then\n")
+        param = replaceStackAccess(param)
+        of:write("elseif " .. param .. " then\n")
     elseif op == "ELSE" then
         of:write("else\n")
     else
-        print("ERR: op " .. op .. " not recognized")
+        if op ~= "" then
+            print("ERR: op " .. op .. " not recognized")
+        end
     end
 end
 

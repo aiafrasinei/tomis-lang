@@ -5,14 +5,17 @@ infinite while:
 WHILE
 ;
 
+WHILE start end increment
+increment is optional (default 1)
+
+WHILE 1 3
+    PRINT test
+;
+
+WHILE 1 4 2
+    PRINT test
+;
+
 breaking from while:
 
 BREAK
-
-WHILE using the stack:
-expected on the stack ( start end increment(optional default 1) )
-
-_ 1 3 1
-WHILE
-    PRINT test
-;
