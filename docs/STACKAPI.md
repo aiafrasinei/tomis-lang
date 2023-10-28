@@ -19,8 +19,7 @@ Accesing the stack:
     stack_index
     
     stack name is optional (_index access to the current stack)
-    top of stack notations: _1 _TOS
-    bottom of stack: _BOS
+    top of stack notations: _1
 
 API to create stacks:
 

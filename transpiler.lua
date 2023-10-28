@@ -5,8 +5,6 @@ local pt = require "pt"
 local utils = require "utils"
 local handlers = require "transpiler_handlers"
 
-local VERSION = "0.1.2"
-
 local input = ""
 
 if #arg == 0 then
@@ -33,8 +31,11 @@ else
 
         for i = 1, #lines do
             if not utils.isempty(lines[i]) then
-                local op, param = utils.get_tokens(lines[i])
-                handlers.run(of, op, param)
+                local ins = utils.trim_ws_front(lines[i])
+                local op, param = utils.get_tokens(ins)
+                if op ~= "" then
+                    handlers.run(of, op, param)
+                end
             end
         end
     else

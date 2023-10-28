@@ -30,16 +30,6 @@ Stack ops for strings:
     EXECI    : execute the string at index
     EXECA    : execute all the strings on the stack
 
-Arithmetics:
-
-Expects 2 elements on the current stack, pops the 2 elements and push the result.
-
-    + - addition        : ( n1 n2 — sum )
-    - - substraction    : ( n1 n2 — diff )
-    * - multiplication  : ( n1 n2 — prod )
-    / - division        : ( n1 n2 — quot )
-    % - mod             : ( n1 n2 — rem )
-
 Input/Output:
 
     PRINT string    : print the param

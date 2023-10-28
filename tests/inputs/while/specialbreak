@@ -1,7 +1,7 @@
 WHILE
-PRINT test1
-BREAK
-WHILE
-PRINT test2
-;
+    PRINT "test1"
+    BREAK
+    WHILE
+        PRINT "test2"
+    ;
 ;

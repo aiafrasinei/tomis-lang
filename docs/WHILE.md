@@ -16,6 +16,12 @@ WHILE 1 4 2
     PRINT test
 ;
 
+WHILE with conditions:
+_ 5
+WHILE _1 > 0
+    - 1
+;
+
 breaking from while:
 
 BREAK

@@ -1,4 +1,4 @@
-PRINT test
+PRINT "test"
 WHILE
-BREAK
+    BREAK
 ;

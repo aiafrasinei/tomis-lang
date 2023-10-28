@@ -1,0 +1,8 @@
+_ 1
+IF _1 == 2
+    PRINT "once"
+ELSEIF _1 == 1
+    PRINT "elseif"
+ELSE
+    PRINT "else"
+;

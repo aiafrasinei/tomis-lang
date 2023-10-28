@@ -1,7 +1,7 @@
 # rpn calculator
 
 WHILE
-INPUT
-RPNEVAL
-@ TOS
+    INPUT
+    RPNEVAL
+    @ TOS
 ;

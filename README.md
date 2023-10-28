@@ -2,11 +2,9 @@
 
 Experiment, simple,
 
-not supposed to be a full language.
+Use stacks as data structure.
 
 Transpiler to lua.
-
-Uses a stack to pass parameters to functions.
 
 ## Examples
 
@@ -19,6 +17,10 @@ Transform tomis code to lua.
 Example:
 
     lua tomis2lua.lua input.t output.lua
+
+## Transpiler to java
+
+Transform tomis code to java.
 
 ## Documentation
 

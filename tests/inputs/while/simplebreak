@@ -1,5 +1,5 @@
 WHILE
-BREAK
-PRINT test2
+    BREAK
+    PRINT "test2"
 ;
-PRINT test3
+PRINT "test3"

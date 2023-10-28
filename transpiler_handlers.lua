@@ -9,13 +9,22 @@ local function replaceStackAccess(param)
         start = param:find("_", fin)
         fin = param:find(" ", start)
         if start ~= nil then
-            param = param:gsub(string.sub(param, start, fin - 1),
-                "cs:peek(" .. string.sub(param, start + 1, fin - 1) .. ")")
+            if fin ~= nil then
+                param = param:gsub(string.sub(param, start, fin - 1),
+                    "cs:peek(" .. string.sub(param, start + 1, fin - 1) .. ")")
+            else
+                fin = #param
+                param = param:gsub(string.sub(param, start, fin),
+                    "cs:peek(" .. string.sub(param, start + 1, fin) .. ")")
+            end
         end
     end
 
     return param
 end
+
+Whiletotem = false
+Whileincr = 1
 
 function transpiler_handlers.run(of, op, param)
     if op == "_" then
@@ -102,15 +111,40 @@ function transpiler_handlers.run(of, op, param)
     elseif op == "2MINROT" then
         of:write("cs:twominrot()\n")
     elseif op == "+" then
-        of:write("cs:add()\n")
+        if param == nil or param == "" then
+            of:write("cs:add()\n")
+        else
+            of:write("cs:push(tonumber(" .. param .. "))\n")
+            of:write("cs:add()\n")
+        end
     elseif op == "-" then
-        of:write("cs:substract()\n")
+        if param == nil or param == "" then
+            of:write("cs:substract()\n")
+        else
+            of:write("cs:push(tonumber(" .. param .. "))\n")
+            of:write("cs:substract()\n")
+        end
     elseif op == "*" then
-        of:write("cs:multiply()\n")
+        if param == nil or param == "" then
+            of:write("cs:multiply()\n")
+        else
+            of:write("cs:push(tonumber(" .. param .. "))\n")
+            of:write("cs:multiply()\n")
+        end
     elseif op == "/" then
-        of:write("cs:division()\n")
+        if param == nil or param == "" then
+            of:write("cs:division()\n")
+        else
+            of:write("cs:push(tonumber(" .. param .. "))\n")
+            of:write("cs:division()\n")
+        end
     elseif op == "%" then
-        of:write("cs:modulo()\n")
+        if param == nil or param == "" then
+            of:write("cs:modulo()\n")
+        else
+            of:write("cs:push(tonumber(" .. param .. "))\n")
+            of:write("cs:modulo()\n")
+        end
     elseif op == "INCR" then
         if param == nil or param == "" then
             of:write("cs:increment(1)\n")
@@ -140,7 +174,8 @@ function transpiler_handlers.run(of, op, param)
         of:write("local ins = io.read()\n")
         of:write("cs:push(ins)\n")
     elseif op == "PRINT" then
-        of:write("print(\"" .. param .. "\")\n");
+        param = replaceStackAccess(param)
+        of:write("print(" .. param .. ")\n");
     elseif op == "F_" then
         of:write("local f = io.open(\"" .. param .. "\", \"rb\")\n")
         of:write("local data = f:read(\"*all\")\n")
@@ -192,15 +227,27 @@ function transpiler_handlers.run(of, op, param)
         if param == "" then
             of:write("while(true) do\n")
         else
+            param = replaceStackAccess(param)
             local tokens = utils.split_string(param, " ")
-            if #tokens == 3 then
-                of:write("for i=" .. tokens[1] .. ", " .. tokens[2] .. ", " .. tokens[3] .. " do\n")
-            elseif #tokens == 2 then
-                of:write("for i=" .. tokens[1] .. ", " .. tokens[2] .. ", 1 do\n")
+            if utils.allnr(tokens) then
+                of:write("cs:push(" .. tokens[1] .. ")\n")
+                Whiletotem = true
+                if #tokens == 3 then
+                    of:write("for i=" .. tokens[1] .. ", " .. tokens[2] .. ", " .. tokens[3] .. " do\n")
+                    Whileincr = tokens[3]
+                elseif #tokens == 2 then
+                    of:write("for i=" .. tokens[1] .. ", " .. tokens[2] .. ", 1 do\n")
+                end
+            else
+                of:write("while " .. param .. " do\n")
             end
         end
     elseif op == ";" then
         of:write("end\n")
+        if Whiletotem then
+            of:write("cs:increment(" .. Whileincr .. ")\n")
+            Whiletotem = false
+        end
     elseif op == "BREAK" then
         of:write("break\n")
     elseif op == "IF" then

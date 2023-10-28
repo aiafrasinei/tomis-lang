@@ -50,4 +50,26 @@ function utils.fatalerr(text, errcode)
     os.exit(errcode)
 end
 
+function utils.trim_ws_front(input)
+    local lasti = 1
+    for i = 1, #input do
+        if input:byte(i) ~= 32 then
+            lasti = i
+            break
+        end
+    end
+
+    return string.sub(input, lasti, #input)
+end
+
+function utils.allnr(table)
+    for i = 1, #table do
+        if tonumber(table[i]) == nil then
+            return false
+        end
+    end
+
+    return true
+end
+
 return utils

@@ -1,15 +1,13 @@
 # fizz buzz
 
-_ 1 51
-WHILE
-    INCR
-    IF _1 % 2 == 0 AND _1 % 3 == 0
-        PRINT fizzbuzz
-    ELSEIF % 3 == 0
-        PRINT fizz
-    ELSEIF % 2 == 0
-        PRINT buzz
+WHILE 1 5
+    PRINT _1
+    IF _1 % 2 == 0 and _1 % 3 == 0
+        PRINT "fizzbuzz"
+    ELSEIF _1 % 3 == 0
+        PRINT "fizz"
+    ELSEIF _1 % 2 == 0
+        PRINT "buzz"
     ELSE
-        @ TOS
     ;
 ;
