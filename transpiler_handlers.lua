@@ -9,17 +9,30 @@ local function replaceStackAccess(param)
         start = param:find("_", fin)
         fin = param:find(" ", start)
         if start ~= nil then
+            local stackname = ""
+            if start > 1 then
+                stackname = "\"" .. string.sub(param, 1, start - 1) .. "\""
+            else
+                stackname = "_G.current_stack"
+            end
+
+            local peekindex = string.sub(param, start + 1, fin - 1)
+            local peekstr = "peek(" .. peekindex .. ")"
+            if peekindex == "TOS" then
+                peekstr = "peekLast()"
+            end
+
             if fin ~= nil then
-                param = param:gsub(string.sub(param, start, fin - 1),
-                    "cs:peek(" .. string.sub(param, start + 1, fin - 1) .. ")")
+                param = param:gsub(string.sub(param, 1, fin - 1),
+                    "sapi:getStack(" .. stackname .. "):" .. peekstr)
             else
                 fin = #param
-                param = param:gsub(string.sub(param, start, fin),
-                    "cs:peek(" .. string.sub(param, start + 1, fin) .. ")")
+                param = param:gsub(string.sub(param, 1, fin),
+                    "sapi:getStack(" .. stackname .. "):" .. peekstr)
             end
         end
     end
-
+    --sapi:getStack(_G.current_stack)
     return param
 end
 
@@ -73,6 +86,13 @@ function transpiler_handlers.run(of, op, param)
         of:write("local str = cs:getData()[1]\n")
         of:write("for i = 2, #cs:getData() do\n")
         of:write("str = str .. \" \" .. cs:getData()[i]\n")
+        of:write("end\n")
+        of:write("cs:clear()\n")
+        of:write("cs:push(str)\n")
+    elseif op == "IMERGE" then
+        of:write("local str = cs:getData()[1]\n")
+        of:write("for i = 2, #cs:getData() do\n")
+        of:write("str = str .. cs:getData()[i]\n")
         of:write("end\n")
         of:write("cs:clear()\n")
         of:write("cs:push(str)\n")
@@ -144,6 +164,13 @@ function transpiler_handlers.run(of, op, param)
         else
             of:write("cs:push(tonumber(" .. param .. "))\n")
             of:write("cs:modulo()\n")
+        end
+    elseif op == "%/" then
+        if param == nil or param == "" then
+            of:write("cs:slashmodulo()\n")
+        else
+            of:write("cs:push(tonumber(" .. param .. "))\n")
+            of:write("cs:slashmodulo()\n")
         end
     elseif op == "INCR" then
         if param == nil or param == "" then

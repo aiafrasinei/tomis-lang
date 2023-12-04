@@ -8,6 +8,5 @@ WHILE 1 5
         PRINT "fizz"
     ELSEIF _1 % 2 == 0
         PRINT "buzz"
-    ELSE
     ;
 ;

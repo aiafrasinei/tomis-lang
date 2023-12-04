@@ -1,0 +1,10 @@
+_ 123456
+
+WHILE _TOS > 0
+    _ 10
+    %/
+;
+
+DROP
+IMERGE
+SPRINT

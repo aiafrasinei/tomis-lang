@@ -1,4 +1,4 @@
-require "stack"
+require "stackext"
 
 StackApi = {}
 StackApi.__index = StackApi
@@ -22,12 +22,10 @@ function StackApi:adde(name)
     self.stacks[name] = Stack:new()
 end
 
---remove
 function StackApi:remove(name)
     self.stacks[name] = nil
 end
 
---replace
 function StackApi:replace(name, stack)
     self.stacks[name] = stack
 end
@@ -36,14 +34,12 @@ function StackApi:copy(current, new)
     self.stacks[current] = self.stacks[new]
 end
 
---removeall
 function StackApi:removeall()
     for k, v in pairs(self.stacks) do
         self.stacks[k] = nil
     end
 end
 
---clear
 function StackApi:clear(name)
     self.stacks[name]:clear()
 end

@@ -233,7 +233,7 @@ function Stack:division()
         return nil
     end
 
-    local res = self.stack[#self.stack - 1] / self.stack[#self.stack]
+    local res = math.floor(self.stack[#self.stack - 1] / self.stack[#self.stack])
     self:stackCleanForOp()
     table.insert(self.stack, res)
 end
@@ -246,6 +246,18 @@ function Stack:modulo()
     local res = self.stack[#self.stack - 1] % self.stack[#self.stack]
     self:stackCleanForOp()
     table.insert(self.stack, res)
+end
+
+function Stack:slashmodulo()
+    if #self.stack < 2 then
+        return nil
+    end
+
+    local res = self.stack[#self.stack - 1] % self.stack[#self.stack]
+    local top = self.stack[#self.stack - 1]
+    self:stackCleanForOp()
+    table.insert(self.stack, res)
+    table.insert(self.stack, math.floor(top / 10))
 end
 
 function Stack:increment(nr)

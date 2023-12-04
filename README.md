@@ -18,10 +18,6 @@ Example:
 
     lua tomis2lua.lua input.t output.lua
 
-## Transpiler to java
-
-Transform tomis code to java.
-
 ## Documentation
 
 Check the docs directory
