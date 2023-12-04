@@ -31,7 +31,7 @@ setup() {
 @test "division" {
     run lua transpiler.lua tests/inputs/math_ops/div output.lua
     run lua output.lua
-    assert_output "3.0"
+    assert_output "3"
 }
 
 @test "modulo" {

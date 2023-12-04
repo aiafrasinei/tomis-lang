@@ -1,6 +1,6 @@
 _ 5
-WHILE _1 > 0
+WHILE _TOS > 0
     - 1
 ;
 
-PRINT _1
+@ TOS
