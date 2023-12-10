@@ -1,6 +1,6 @@
 # tomis-lang
 
-Experiment, simple,
+Yet another experimental language, simple,
 
 Use stacks as data structure.
 
